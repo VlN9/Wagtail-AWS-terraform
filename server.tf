@@ -70,7 +70,7 @@ resource "aws_security_group_rule" "healthcheck_rule" {
 # }
 #==========Database=for=Wagtail==============================
 resource "aws_security_group_rule" "db_connect_rule" {
-  count                    = data.aws_security_group.web_sg == true ? 1 : 0
+  count                    = var.data_sg_rule_count
   type                     = "ingress"
   from_port                = 5432
   to_port                  = 5432

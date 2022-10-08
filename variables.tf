@@ -101,3 +101,8 @@ variable "health_check_sg_protocol" {
   type        = string
   default     = "tcp"
 }
+
+variable "data_sg_rule_count" {
+  default = 1
+}
+
