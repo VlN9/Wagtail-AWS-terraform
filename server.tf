@@ -69,30 +69,12 @@ resource "aws_security_group_rule" "healthcheck_rule" {
 #   tags = merge(var.common_tags, { Name = "${local.name}-Security-Group-for-health-checks" })
 # }
 #==========Database=for=Wagtail==============================
-resource "aws_db_instance" "wagtail_db" {
-  allocated_storage      = var.db_storage
-  db_name                = "demo_wagtail"
-  engine                 = var.db_engine
-  engine_version         = var.db_engine_version
-  instance_class         = var.db_instance_class
-  username               = "demouser"
-  password               = "DemoPass"
-  vpc_security_group_ids = [aws_security_group.db_sg.id]
-  apply_immediately      = true
-  skip_final_snapshot    = true
-
-  tags = merge(var.common_tags, { Name = "${local.name}-Database" })
-}
-
-resource "aws_security_group" "db_sg" {
-  name = "SG for db"
-
-  ingress {
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.web_sg.id]
-  }
-
-  tags = merge(var.common_tags, { Name = "${local.name}-Databse-Security-Group" })
+resource "aws_security_group_rule" "db_connect_rule" {
+  count                    = data.aws_security_group.web_sg == true ? 1 : 0
+  type                     = "ingress"
+  from_port                = 5432
+  to_port                  = 5432
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.web_sg.id
+  security_group_id        = aws_security_group.web_sg.id
 }

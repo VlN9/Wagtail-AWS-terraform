@@ -32,30 +32,6 @@ variable "number_of_instances" {
   default = 1
 }
 
-variable "db_instance_class" {
-  description = "class of db instance"
-  type        = string
-  default     = "db.t3.micro"
-}
-
-variable "db_engine" {
-  description = "engine of db"
-  type        = string
-  default     = "postgres"
-}
-
-variable "db_engine_version" {
-  description = "version of db engine"
-  type        = string
-  default     = "12.7"
-}
-
-variable "db_storage" {
-  description = "amount storage of db instance"
-  type        = number
-  default     = 8
-}
-
 variable "sg_ingress_rule" {
   description = "list of parametres for server's security group ingress rules"
   type        = list(any)
@@ -71,7 +47,7 @@ variable "sg_ingress_rule" {
 
 variable "sg_egress_rule" {
   description = "list of parametres for server's security group egress rules"
-  type = list(any)
+  type        = list(any)
   default = [
     {
       from_port   = 0
@@ -90,14 +66,14 @@ variable "my_ip" {
 
 variable "healthy_threshold" {
   description = "number of checks for healthy state"
-  type    = number
-  default = 4
+  type        = number
+  default     = 4
 }
 
 variable "unhealthy_threshold" {
   description = "number of checks for unhealthy state"
-  type    = number
-  default = 2
+  type        = number
+  default     = 2
 }
 
 variable "health_check_timeout" {
@@ -112,16 +88,16 @@ variable "health_check_interval" {
 
 variable "lb_tg_protocol" {
   description = "protocol for target group health_checks"
-  default = "HTTP"
+  default     = "HTTP"
 }
 
 variable "lb_tg_port" {
   description = "port for target group health-checks and security gruop rule"
-  default = 80
+  default     = 80
 }
 
 variable "health_check_sg_protocol" {
   description = "protocol for security group rule for health_check"
-  type    = string
-  default = "tcp"
+  type        = string
+  default     = "tcp"
 }

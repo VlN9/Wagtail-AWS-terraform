@@ -25,4 +25,8 @@ data "aws_vpc" "default" {}
 data "aws_route53_zone" "vln" {
   name         = "vln.ink"
   private_zone = false
-} 
+}
+
+data "aws_security_group" "web_sg" {
+  name = "SG for db"
+}
