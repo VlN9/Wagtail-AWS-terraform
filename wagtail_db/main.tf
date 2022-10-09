@@ -2,6 +2,14 @@ provider "aws" {
   region = var.aws_region
 }
 
+terraform {
+  backend "s3" {
+    bucket = "vln-project-terraforrm-state"
+    key    = "wagtail/prod/terraform.tfstate"
+    region = "ca-central-1"
+  }
+}
+
 resource "aws_db_instance" "wagtail_db" {
   allocated_storage      = var.db_storage
   db_name                = "demo_wagtail"

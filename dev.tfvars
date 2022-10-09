@@ -12,9 +12,35 @@ instance_type = "t2.micro"
 
 number_of_instances = 1
 
-db_instance_class = "db.t3.micro"
+user_data = [<<EOF
+#!/bin/bash
 
-db_storage = 10
+sudo yum -y upgrade
+sudo amazon-linux-extras install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+
+sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose 
+
+sudo yum -y install git
+
+echo "# .env.dev
+
+DEBUG=True
+SECRET_KEY=[django-insecure-zamqnhl^5gb6af3ef$w(r2%4l%1w@2x=t_*71^r5_moa8cg*xg]
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] wagtail-dev.vln.ink wagtail.vln.ink
+
+SQL_ENGINE=django.db.backends.postgresql_psycopg2
+SQL_DATABASE=demo_wagtail
+SQL_USER=demouser
+SQL_PASSWORD=DemoPass
+SQL_HOST=
+SQL_PORT=5432
+DATABASE=postgres" > /var/.env 
+EOF
+]
 
 sg_ingress_rule = [
   {
@@ -30,3 +56,5 @@ sg_ingress_rule = [
     cidr_blocks = ["93.175.223.50/32"]
   }
 ]
+
+data_sg_rule_count = 1

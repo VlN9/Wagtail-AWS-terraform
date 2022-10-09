@@ -27,7 +27,7 @@ data "aws_route53_zone" "vln" {
   private_zone = false
 }
 
-data "aws_security_group" "web_sg" {
+data "aws_security_group" "db_sg" {
   count = var.data_sg_rule_count
   name  = "SG for db"
 }

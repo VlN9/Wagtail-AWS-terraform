@@ -27,6 +27,10 @@ variable "replace_userdata_on_change" {
   default     = false
 }
 
+variable "user_data" {
+  default = []
+}
+
 variable "number_of_instances" {
   type    = number
   default = 1

@@ -7,7 +7,7 @@ module "ec2_server" {
   env                        = var.common_tags["Environment"]
   owner                      = var.common_tags["Owner"]
   project                    = var.common_tags["Project"]
-  user_data                  = file("user_data.sh")
+  user_data                  = var.user_data
   security_groups            = [aws_security_group.web_sg.id]
 }
 
@@ -51,23 +51,6 @@ resource "aws_security_group_rule" "healthcheck_rule" {
   ]
 }
 
-# resource "aws_security_group" "health_check_sg" {
-#   name        = "Security Group for Health Checks"
-#   description = "sg for allowed helth-check queries"
-
-#   ingress {
-#     from_port       = var.allow_ingress_ports["from_port"]
-#     to_port         = var.allow_ingress_ports["from_port"]
-#     protocol        = var.network_ingress_protocol
-#     security_groups = [aws_security_group.wagtail_web_sg.id]
-#   }
-
-#   depends_on = [
-#     aws_security_group.wagtail_web_sg
-#   ]
-
-#   tags = merge(var.common_tags, { Name = "${local.name}-Security-Group-for-health-checks" })
-# }
 #==========Database=for=Wagtail==============================
 resource "aws_security_group_rule" "db_connect_rule" {
   count                    = var.data_sg_rule_count
@@ -76,5 +59,9 @@ resource "aws_security_group_rule" "db_connect_rule" {
   to_port                  = 5432
   protocol                 = "tcp"
   source_security_group_id = aws_security_group.web_sg.id
-  security_group_id        = aws_security_group.web_sg.id
+  security_group_id        = data.aws_security_group.db_sg.id
+
+  depends_on = [
+    aws_security_group.web_sg
+  ]
 }

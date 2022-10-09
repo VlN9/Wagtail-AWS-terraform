@@ -10,7 +10,8 @@ replace_userdata_on_change = false
 
 number_of_instances = 1
 
-db_storage = 15
+user_data = [
+]
 
 sg_ingress_rule = [
   {
@@ -26,3 +27,5 @@ sg_ingress_rule = [
     cidr_blocks = ["93.175.223.50/32"]
   }
 ]
+
+data_sg_rule_count = 1
