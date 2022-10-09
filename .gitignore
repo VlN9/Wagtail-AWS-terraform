@@ -1,1 +1,2 @@
-.terrafrorm*
+/.terrafrorm
+*.lock.hcl
