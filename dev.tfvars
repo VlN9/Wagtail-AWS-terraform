@@ -12,7 +12,7 @@ instance_type = "t2.micro"
 
 number_of_instances = 1
 
-user_data = [<<EOF
+user_data =<<EOF
 #!/bin/bash
 
 sudo yum -y upgrade
@@ -30,17 +30,16 @@ echo "# .env.dev
 
 DEBUG=True
 SECRET_KEY=[django-insecure-zamqnhl^5gb6af3ef$w(r2%4l%1w@2x=t_*71^r5_moa8cg*xg]
-DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] wagtail-dev.vln.ink wagtail.vln.ink
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 wagtail-dev.vln.ink
 
 SQL_ENGINE=django.db.backends.postgresql_psycopg2
 SQL_DATABASE=demo_wagtail
 SQL_USER=demouser
 SQL_PASSWORD=DemoPass
-SQL_HOST=
+SQL_HOST=terraform-20221009083555012200000001.cstxddea1prn.ca-central-1.rds.amazonaws.com
 SQL_PORT=5432
 DATABASE=postgres" > /var/.env 
 EOF
-]
 
 sg_ingress_rule = [
   {

@@ -28,7 +28,6 @@ variable "replace_userdata_on_change" {
 }
 
 variable "user_data" {
-  default = []
 }
 
 variable "number_of_instances" {
@@ -107,6 +106,6 @@ variable "health_check_sg_protocol" {
 }
 
 variable "data_sg_rule_count" {
-  default = 1
+  default = 0
 }
 

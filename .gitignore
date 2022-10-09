@@ -1,2 +1,3 @@
-*/.terrafrorm/
+*/.terraform/
+/.terraform/
 *.lock.hcl

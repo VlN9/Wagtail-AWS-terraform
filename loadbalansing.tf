@@ -12,7 +12,7 @@ resource "aws_lb_target_group" "wagtail_tg" {
     unhealthy_threshold = var.unhealthy_threshold
     timeout             = var.health_check_timeout
     interval            = var.health_check_interval
-    matcher             = "200" # healthcheck is configured on 400code because app require additional setup 
+    matcher             = "400" # healthcheck is configured on 400code because app require additional setup 
   }
 
   tags = merge(var.common_tags, { Name = "${local.name}-Target-Group" })
