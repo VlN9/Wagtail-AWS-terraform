@@ -1,12 +1,3 @@
-data "aws_ami" "latest_amazon_linux" {
-  owners      = ["137112412989"]
-  most_recent = true
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-kernel-5.10-hvm-*-x86_64-gp2"]
-  }
-}
-
 data "terraform_remote_state" "server" {
   backend = "s3"
   config = {
@@ -15,8 +6,6 @@ data "terraform_remote_state" "server" {
     region = "ca-central-1"
   }
 }
-
-data "aws_key_pair" "my_key" {}
 
 data "aws_subnets" "default" {}
 
@@ -28,6 +17,6 @@ data "aws_route53_zone" "vln" {
 }
 
 data "aws_security_group" "db_sg" {
-  count = var.data_sg_rule_count
+  count = var.security_group_rule_for_db == true ? 1 : 0
   name  = "SG for db"
 }

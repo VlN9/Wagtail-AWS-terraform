@@ -10,7 +10,7 @@ replace_userdata_on_change = false
 
 number_of_instances = 1
 
-user_data =<<EOF
+user_data = <<EOF
 #!/bin/bash
 
 sudo yum -y upgrade
@@ -39,19 +39,40 @@ SQL_PORT=5432
 DATABASE=postgres" > /var/.env 
 EOF
 
-sg_ingress_rule = [
+sg_cidr_rule = [
   {
+    description = "HTTP ingress rule for all"
+    type        = "ingress"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   },
   {
+    description = "SSH ingress rule for me"
+    type        = "ingress"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["93.175.223.50/32"]
+  },
+  {
+    description = "egress rule for all"
+    type        = "egress"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 ]
 
-data_sg_rule_count = 1
+sg_self_rule = [
+  {
+    description = "rule for target group health_check"
+    port        = 80
+    protocol    = "tcp"
+    type        = "ingress"
+  }
+]
+
+security_group_rule_for_db = false

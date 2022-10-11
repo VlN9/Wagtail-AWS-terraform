@@ -35,11 +35,13 @@ variable "number_of_instances" {
   default = 1
 }
 
-variable "sg_ingress_rule" {
-  description = "list of parametres for server's security group ingress rules"
+variable "sg_cidr_rule" {
+  description = "list of parametres for server's security group ingress and egress rules. CIDR only"
   type        = list(any)
   default = [
     {
+      type        = "ingress"
+      description = " "
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
@@ -48,23 +50,23 @@ variable "sg_ingress_rule" {
   ]
 }
 
-variable "sg_egress_rule" {
-  description = "list of parametres for server's security group egress rules"
-  type        = list(any)
+variable "sg_self_rule" {
+  description = "list of parametres for server's security group ingress and egress rules. for group itself"
+  type = list(any)
   default = [
     {
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-    },
+      type        = "ingress"
+      description = " "
+      port        = 80
+      protocol    = "tcp"
+    }
   ]
 }
 
-variable "my_ip" {
-  type      = string
-  sensitive = true
-  default   = "93.175.223.50/32"
+variable "sg_another_group_rule" {
+  description = "list of parametres for server's security group ingress and egress rules. For connection security group to another"
+  type    = list(any)
+  default = []
 }
 
 variable "healthy_threshold" {
@@ -99,13 +101,9 @@ variable "lb_tg_port" {
   default     = 80
 }
 
-variable "health_check_sg_protocol" {
-  description = "protocol for security group rule for health_check"
-  type        = string
-  default     = "tcp"
-}
-
-variable "data_sg_rule_count" {
-  default = 0
+variable "security_group_rule_for_db" {
+  description = "if this value is 'true' then terraform find sg for db and connect it to ec2 server sg"
+  type    = bool
+  default = false
 }
 
