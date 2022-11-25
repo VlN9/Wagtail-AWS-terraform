@@ -9,6 +9,7 @@ module "ec2_server" {
   project                    = var.common_tags["Project"]
   user_data                  = var.user_data
   security_groups            = [aws_security_group.web_sg.id]
+  key_pair_name              = var.key_pair_name
 }
 
 resource "aws_security_group" "web_sg" {

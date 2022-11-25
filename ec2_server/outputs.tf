@@ -19,6 +19,14 @@ output "route53_record" {
   value = aws_route53_record.wagtail.records
 }
 
-output "ec2_server_outputs" {
+output "ec2_server_id" {
   value = module.ec2_server.aws_instance_id
+}
+
+output "ec2_server_pub_ip" {
+  value = module.ec2_server.aws_instance_public_ip
+}
+
+output "db_endpoint" {
+  value = data.aws_db_instance.main_db.endpoint
 }

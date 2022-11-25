@@ -37,3 +37,21 @@ variable "db_storage" {
   type        = number
   default     = 8
 }
+
+variable "db_name" {
+  description = "name of database"
+  type = string
+  default = "demo_wagtail"
+}
+
+variable "db_user" {
+  description = "name of user for db"
+  type = string
+  default = "demouser"
+}
+
+variable "db_password" {
+  description = "password for db"
+  type = string
+  default = "DemoPass"
+}

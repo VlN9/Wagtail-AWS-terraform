@@ -15,6 +15,12 @@ variable "common_tags" {
   }
 }
 
+variable "key_pair_name" {
+  description = "name of key pair for ec2 instance"
+  type        = string
+  default     = "client_key-ca-central-1"
+}
+
 variable "instance_type" {
   description = "class of instances"
   type        = string
@@ -27,8 +33,7 @@ variable "replace_userdata_on_change" {
   default     = false
 }
 
-variable "user_data" {
-}
+variable "user_data" {}
 
 variable "number_of_instances" {
   type    = number
@@ -107,3 +112,6 @@ variable "security_group_rule_for_db" {
   default = false
 }
 
+variable "data_db_name" {
+  description = "name of db for data source"
+}

@@ -12,12 +12,12 @@ terraform {
 
 resource "aws_db_instance" "wagtail_db" {
   allocated_storage      = var.db_storage
-  db_name                = "demo_wagtail"
+  db_name                = var.db_name
   engine                 = var.db_engine
   engine_version         = var.db_engine_version
   instance_class         = var.db_instance_class
-  username               = "demouser"
-  password               = "DemoPass"
+  username               = var.db_user
+  password               = var.db_password
   vpc_security_group_ids = [aws_security_group.db_sg.id]
   apply_immediately      = true
   skip_final_snapshot    = true

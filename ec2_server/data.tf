@@ -20,3 +20,7 @@ data "aws_security_group" "db_sg" {
   count = var.security_group_rule_for_db == true ? 1 : 0
   name  = "SG for db"
 }
+
+data "aws_db_instance" "main_db" {
+  db_instance_identifier = var.data_db_name
+}
