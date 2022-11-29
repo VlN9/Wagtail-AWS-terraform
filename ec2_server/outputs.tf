@@ -28,5 +28,5 @@ output "ec2_server_pub_ip" {
 }
 
 output "db_endpoint" {
-  value = data.aws_db_instance.main_db.endpoint
+  value = data.aws_db_instance.main_db[*].endpoint
 }
