@@ -1,43 +1,35 @@
+
 - name: Docker installing
   hosts: prod_servers
   become: yes
 
   tasks:
     - name: Installing Docker
-      shell: amazon-linux-extras install -y docker 
+      shell: amazon-linux-extras install -y docker
 
-    - name: Start Docker engine
-      service: name=docker state=started
-    
     - name: Installing Docker-compose
-      shell: curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose %% /
-        curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+      shell: curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose && curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 
     - name: change mod
       shell: chmod +x /usr/local/bin/docker-compose
 
+    - name: Start Docker engine
+      service: name=docker state=started
+
     - name: Installing Git
       yum: name=git state=latest
 
-    - name: Add users to group docker
-      shell: sudo usermod -aG "docker" jenkins
+    - name: Adding repo
+      copy: src=psql12_repo dest=/etc/yum.repos.d/pgdg.repo
+
+    - name: make cache
+      shell: yum makecache
+
+    - name: installig Postgresql12
+      yum: name=postgresql12 state=installed
 
     - name: Create env file
-      copy:
-        dest: /var/.env
-        content: |
-          # .env.dev
+      copy: src=.env dest=/var/.env
 
-          DEBUG=True
-          SECRET_KEY=[django-insecure-zamqnhl^5gb6af3ef$w(r2%4l%1w@2x=t_*71^r5_moa8cg*xg]
-          DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 wagtail-dev.vln.ink
-
-          SQL_ENGINE=django.db.backends.postgresql_psycopg2
-          SQL_DATABASE=demo_wagtail
-          SQL_USER=demouser
-          SQL_PASSWORD=DemoPass
-          SQL_PORT=5432
-          DATABASE=postgres
-
-    - name: Copy key
-      copy: src=/home/ec2-user/client_key-ca-central-1.pem dest=/home/ec2-user/.ssh/client_key-ca-central-1.pem mod=400
+    - name: Create .pgpass
+      copy: src=.pgpass dest=/home/ec2-user/ mod=600

@@ -11,6 +11,7 @@ terraform {
 }
 
 resource "aws_db_instance" "wagtail_db" {
+  identifier		 = "terraform-wagtail-db"
   allocated_storage      = var.db_storage
   db_name                = var.db_name
   engine                 = var.db_engine
