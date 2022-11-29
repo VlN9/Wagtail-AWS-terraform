@@ -46,6 +46,6 @@ sg_self_rule = [
   }
 ]
 
-security_group_rule_for_db = true
+security_group_rule_for_db = false
 
 data_db_name = "terraform-wagtail-db"
