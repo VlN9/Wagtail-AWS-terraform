@@ -1,6 +1,6 @@
 #==========EC2=Server========================================
 module "ec2_server" {
-  source                     = "git@github.com:VlN9/Terraform-modules.git//server_module"
+  source                     = "github.com/VlN9/Terraform-modules.git//server_module"
   count_instances            = var.number_of_instances
   instance_type              = var.instance_type
   replace_userdata_on_change = var.replace_userdata_on_change

@@ -8,10 +8,13 @@
       shell: amazon-linux-extras install -y docker
 
     - name: Installing Docker-compose
-      shell: curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose && curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+      shell: curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
     - name: change mod
       shell: chmod +x /usr/local/bin/docker-compose
+
+    - name: create link
+      shell: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
     - name: Start Docker engine
       service: name=docker state=started
@@ -32,4 +35,7 @@
       copy: src=.env dest=/var/.env
 
     - name: Create .pgpass
-      copy: src=.pgpass dest=/home/ec2-user/ mod=600
+      copy: src=.pgpass dest=/home/ec2-user/ mode=600
+
+    - name: change owner .pgpass
+      shell: chown ec2-user:ec2-user /home/ec2-user/.pgpass
