@@ -25,7 +25,7 @@ sg_cidr_rule = [
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["93.175.223.50/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   },
   {
     description = "egress rule for all"
