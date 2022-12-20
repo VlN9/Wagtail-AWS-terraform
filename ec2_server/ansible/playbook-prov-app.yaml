@@ -1,6 +1,5 @@
 - name: Provision wgtail application
   hosts: prod_servers
-  become: yes
 
   tasks:
     - name: cloning repo

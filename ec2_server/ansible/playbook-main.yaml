@@ -18,6 +18,9 @@
     - name: Start Docker engine
       service: name=docker state=started
 
+    - name: add user in docker group
+      shell: usermod -aG "docker" ec2-user
+
     - name: Installing Git
       yum: name=git state=latest
 
