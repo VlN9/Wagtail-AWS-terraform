@@ -41,7 +41,7 @@
       shell: chown ec2-user:ec2-user /home/ec2-user/.pgpass
 
     - name: copy ssh key for git
-      copy: src=/var/lib/jenkins/.ssh/id_rsa dest=/home/.ssh/id_rsa mode=400
+      copy: src=/var/lib/jenkins/.ssh/id_rsa dest=/home/ec2-user/.ssh/id_rsa mode=400
 
     - name: copy known_hosts
       copy: src=/var/lib/jenkins/.ssh/known_hosts dest=/home/.ssh/known_hosts
