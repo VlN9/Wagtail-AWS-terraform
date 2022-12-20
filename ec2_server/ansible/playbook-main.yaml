@@ -44,7 +44,7 @@
       copy: src=/var/lib/jenkins/.ssh/id_rsa dest=/home/ec2-user/.ssh/id_rsa mode=400
 
     - name: copy known_hosts
-      copy: src=/var/lib/jenkins/.ssh/known_hosts dest=/home/.ssh/known_hosts
+      copy: src=/var/lib/jenkins/.ssh/known_hosts dest=/home/ec2-user/.ssh/known_hosts
 
     - name: chenge owner for key
-      shell: chown ec2-user:ec2-user /home/.ssh/id_rsa /home/.ssh/known_hosts
+      shell: chown ec2-user:ec2-user /home/ec2-user/.ssh/id_rsa /home/ec2-user/.ssh/known_hosts
