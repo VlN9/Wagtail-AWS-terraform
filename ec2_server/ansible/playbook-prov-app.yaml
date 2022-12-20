@@ -1,0 +1,13 @@
+- name: Provision wgtail application
+  hosts: prod_servers
+  become: yes
+
+  tasks:
+    - name: cloning repo
+      shell: git clone git@github.com:VlN9/Wagtail-web.git
+
+    - name: configure database
+      shell: /nome/ec2-user/Wagtail-web/dump.sh
+
+    - name: deploy application
+      shell: cd /nome/ec2-user/Wagtail-web && docker-compose up --build
