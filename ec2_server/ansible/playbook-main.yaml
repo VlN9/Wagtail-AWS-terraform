@@ -1,4 +1,3 @@
-
 - name: Docker installing
   hosts: prod_servers
   become: yes
