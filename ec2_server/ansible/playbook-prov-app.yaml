@@ -9,4 +9,4 @@
       shell: cd /home/ec2-user/Wagtail-web/ && ./dump.sh 
 
     - name: deploy application
-      shell: cd /home/ec2-user/Wagtail-web && docker-compose up --build
+      shell: cd /home/ec2-user/Wagtail-web && docker-compose up -d --build
