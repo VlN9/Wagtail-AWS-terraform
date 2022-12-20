@@ -6,7 +6,7 @@
       shell: git clone git@github.com:VlN9/Wagtail-web.git
 
     - name: configure database
-      shell: /home/ec2-user/Wagtail-web/dump.sh
+      shell: cd /home/ec2-user/Wagtail-web/ && ./dump.sh 
 
     - name: deploy application
       shell: cd /home/ec2-user/Wagtail-web && docker-compose up --build
