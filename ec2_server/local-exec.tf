@@ -8,7 +8,7 @@ resource "null_resource" "add_hosts" {
 }
 resource "null_resource" "ansible_activate" {
   provisioner "local-exec" {
-    command = "sleep 3 && ansible-playbook ./ansible/playbook-main.yaml"
+    command = "sleep 5 && ansible-playbook ./ansible/playbook-main.yaml"
   }
   depends_on = [
     module.ec2_server
