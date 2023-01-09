@@ -10,6 +10,8 @@ replace_userdata_on_change = false
 
 number_of_instances = 1
 
+key_pair_name = "client_key-ca-central-1"
+
 sg_cidr_rule = [
   {
     description = "HTTP ingress rule for all"
