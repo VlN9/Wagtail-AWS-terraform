@@ -1,4 +1,4 @@
-data "terraform_remote_state" "server" {
+ata "terraform_remote_state" "server" {
   backend = "s3"
   config = {
     bucket = "vln-project-terraforrm-state"
@@ -11,8 +11,8 @@ data "aws_subnets" "default" {}
 
 data "aws_vpc" "default" {}
 
-data "aws_route53_zone" "vln" {
-  name         = "vln.ink"
+data "aws_route53_zone" "main_zone" {
+  name         = var.zone_name
   private_zone = false
 }
 

@@ -117,3 +117,8 @@ variable "security_group_rule_for_db" {
 variable "data_db_name" {
   description = "name of db for data source"
 }
+
+variable "zone_name" {
+  type    = string
+  default = "example.com"
+}
