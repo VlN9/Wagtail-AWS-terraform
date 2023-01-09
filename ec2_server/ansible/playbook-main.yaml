@@ -38,15 +38,15 @@
 
     - name: Create .pgpass
       copy: src=.pgpass dest=/home/ec2-user/ mode=600
-
-    - name: change owner .pgpass
-      shell: chown ec2-user:ec2-user /home/ec2-user/.pgpass
-
+      become: true
+      become_user: ec2-user
+      
     - name: copy ssh key for git
-      copy: src=/var/lib/jenkins/.ssh/id_rsa dest=/home/ec2-user/.ssh/id_rsa mode=400
-
+      copy: src=/home/ec2-user/.ssh/id_rsa dest=/home/ec2-user/.ssh/id_rsa mode=400
+      become: true
+      become_user: ec2-user
+      
     - name: copy known_hosts
-      copy: src=/var/lib/jenkins/.ssh/known_hosts dest=/home/ec2-user/.ssh/known_hosts
-
-    - name: chenge owner for key
-      shell: chown ec2-user:ec2-user /home/ec2-user/.ssh/id_rsa /home/ec2-user/.ssh/known_hosts
+      copy: src=/home/ec2-user/.ssh/known_hosts dest=/home/ec2-user/.ssh/known_hosts
+      become: true
+      become_user: ec2-user
