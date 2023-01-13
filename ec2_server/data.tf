@@ -1,4 +1,4 @@
-ata "terraform_remote_state" "server" {
+data "terraform_remote_state" "server" {
   backend = "s3"
   config = {
     bucket = "vln-project-terraforrm-state"
